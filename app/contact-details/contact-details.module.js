@@ -1,2 +1,3 @@
-angular.module('contactDetails', []
-);
+angular.module('contactDetails', [
+    'ngRoute'
+]);
