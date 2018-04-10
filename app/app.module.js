@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('contactsApp', [
-    'contactList'
+    'contactList',
+    'contactDetails'
 ]);
