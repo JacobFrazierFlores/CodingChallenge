@@ -3,15 +3,34 @@ module('contactDb').
 service('db', function($http) {
     var contacts = [];
 
+    function deepCopyArray(a){
+        var copy = [];
+        for(var i in a){
+            copy.push(deepCopyContact(a[i]));
+        }
+        return copy;
+    }
+
+    function deepCopyContact(contact){
+        return {
+            id : contact.id,
+            name : contact.name,
+            phone : contact.phone,
+            email : contact.email,
+            birthday : contact.birthday,
+            avatar : contact.avatar
+        };
+    }
+
     function getContacts(callBack){
         if(contacts.length === 0){
             $http.get('contacts/seed.json').then(function(response) {
                 contacts = response.data.contacts;
-                callBack(contacts);
+                callBack(deepCopyArray(contacts));
             });
         }
         else{
-            callBack(contacts);
+            callBack(deepCopyArray(contacts));
         }
     }
 
@@ -20,13 +39,7 @@ service('db', function($http) {
     };
 
     this.add = function add(contact){
-        var con = {
-            name : contact.name,
-            phone : contact.phone,
-            email : contact.email,
-            birthday : contact.birthday,
-            avatar : contact.avatar
-        };
+        var con = deepCopyContact(contact);
         getContacts(function(){
             //Makes dangerous assumption last contact has highest id #
             con.id = contacts[contacts.length - 1].id + 1;
@@ -41,11 +54,7 @@ service('db', function($http) {
             //will have worse case run time of O(n), consider replacing w/ more efficient search algorithm if data set gets larger
             for (var i in contacts) {
                 if (contacts[i].id == con.id) {
-                    contacts[i].name = con.name;
-                    contacts[i].phone = con.phone;
-                    contacts[i].email = con.email;
-                    contacts[i].birthday = con.birthday;
-                    contacts[i].avatar = con.avatar;
+                    contacts[i] = deepCopyContact(con);
                     break;
                 }
             }

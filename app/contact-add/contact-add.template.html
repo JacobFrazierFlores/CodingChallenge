@@ -30,4 +30,5 @@
     </p>
     <br>
     <button ng-click="$ctrl.submit()" ng-disabled="(addContact.name.$invalid) || (addContact.email.$dirty && addContact.email.$invalid) || (addContact.phone.$dirty && addContact.phone.$invalid)">Submit</button>
+    <button ng-click="$ctrl.cancel()">Cancel</button>
 </form>

@@ -2,7 +2,7 @@ angular.
 module('contactAdd').
 component('contactAdd', {
     templateUrl: 'contact-add/contact-add.template.html',
-    controller: ['$filter', 'db', function ContactAddController($filter, db) {
+    controller: ['$filter', '$location', 'db', function ContactAddController($filter, $location, db) {
         var self = this;
         self.contact = [];
         self.contact.name = '';
@@ -17,6 +17,11 @@ component('contactAdd', {
             }
             console.log(self.contact);
             db.add(self.contact);
+            $location.path( "/");
+        };
+
+        self.cancel = function cancel(){
+            $location.path( "/");
         };
     }]
 });
