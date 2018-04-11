@@ -1,8 +1,10 @@
 angular.
 module('contactDb').
 service('db', function($http, $localStorage) {
+    //Bind storage variable to local storage
     var storage = $localStorage;
 
+    //Create deep copy to prevent aliasing
     function deepCopyArray(a){
         var copy = [];
         for(var i in a){
@@ -22,7 +24,10 @@ service('db', function($http, $localStorage) {
         };
     }
 
+    //Returns a deep copy of contacts data
+    //@params callBack: function that will be passed the contact data after it is created
     function getContacts(callBack){
+        //If there are no contacts in local storage, pull from seed file
         if(!storage.contacts){
             $http.get('contacts/seed.json').then(function(response) {
                 storage.contacts = response.data.contacts;
@@ -34,10 +39,12 @@ service('db', function($http, $localStorage) {
         }
     }
 
+    //Public getter function
     this.get = function get(callBack) {
         getContacts(callBack);
     };
 
+    //Public adder function
     this.add = function add(contact){
         var con = deepCopyContact(contact);
         getContacts(function(){
@@ -47,6 +54,7 @@ service('db', function($http, $localStorage) {
         });
     };
 
+    //Public update function
     this.update = function update(contact){
         var con = contact;
         getContacts(function(){
