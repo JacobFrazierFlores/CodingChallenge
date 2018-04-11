@@ -5,5 +5,6 @@ angular.module('contactsApp', [
     'contactList',
     'contactDetails',
     'contactAdd',
-    'contactDb'
+    'contactDb',
+    'contactEdit'
 ]);

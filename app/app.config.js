@@ -14,6 +14,9 @@ config(['$locationProvider', '$routeProvider',
         when('/contacts/:contactId', {
             template: '<contact-details></contact-details>'
         }).
+        when('/contacts/edit/:contactId', {
+            template: '<contact-edit></contact-edit>'
+        }).
         otherwise('/contacts');
     }
 ]);

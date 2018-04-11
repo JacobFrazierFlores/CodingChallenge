@@ -2,7 +2,7 @@ angular.
 module('contactAdd').
 component('contactAdd', {
     templateUrl: 'contact-add/contact-add.template.html',
-    controller: ['db', function ContactAddController(db) {
+    controller: ['$filter', 'db', function ContactAddController($filter, db) {
         var self = this;
         self.contact = [];
         self.contact.name = '';
@@ -11,7 +11,11 @@ component('contactAdd', {
         self.contact.birthday = '';
         self.contact.avatar = '';
 
-        self.addContact = function addContact(){
+        self.submit = function submit(){
+            if(self.contact.formatedBD){
+                self.contact.birthday = $filter('date')(self.contact.formatedBD, "MM/dd/yyyy");
+            }
+            console.log(self.contact);
             db.add(self.contact);
         };
     }]
