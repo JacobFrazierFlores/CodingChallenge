@@ -1,7 +1,7 @@
 angular.
 module('contactDb').
-service('db', function($http) {
-    var contacts = [];
+service('db', function($http, $localStorage) {
+    var storage = $localStorage;
 
     function deepCopyArray(a){
         var copy = [];
@@ -23,14 +23,14 @@ service('db', function($http) {
     }
 
     function getContacts(callBack){
-        if(contacts.length === 0){
+        if(!storage.contacts){
             $http.get('contacts/seed.json').then(function(response) {
-                contacts = response.data.contacts;
-                callBack(deepCopyArray(contacts));
+                storage.contacts = response.data.contacts;
+                callBack(deepCopyArray(storage.contacts));
             });
         }
         else{
-            callBack(deepCopyArray(contacts));
+            callBack(deepCopyArray(storage.contacts));
         }
     }
 
@@ -42,9 +42,8 @@ service('db', function($http) {
         var con = deepCopyContact(contact);
         getContacts(function(){
             //Makes dangerous assumption last contact has highest id #
-            con.id = contacts[contacts.length - 1].id + 1;
-            contacts.push(con);
-            console.log(contacts);
+            con.id = storage.contacts[storage.contacts.length - 1].id + 1;
+            storage.contacts.push(con);
         });
     };
 
@@ -52,9 +51,9 @@ service('db', function($http) {
         var con = contact;
         getContacts(function(){
             //will have worse case run time of O(n), consider replacing w/ more efficient search algorithm if data set gets larger
-            for (var i in contacts) {
-                if (contacts[i].id == con.id) {
-                    contacts[i] = deepCopyContact(con);
+            for (var i in storage.contacts) {
+                if (storage.contacts[i].id === con.id) {
+                    storage.contacts[i] = deepCopyContact(con);
                     break;
                 }
             }

@@ -17,12 +17,10 @@ component('contactEdit', {
             self.submit = function submit(){
                 self.contact.birthday = $filter('date')(self.contact.formatedBD, "MM/dd/yyyy");
                 db.update(self.contact);
-                console.log('cat');
                 $location.path( "/contacts/" + self.contact.id );
             };
 
             self.cancel = function cancel(){
-                console.log('hello');
                 $location.path( "/contacts/" + self.contact.id );
             };
 

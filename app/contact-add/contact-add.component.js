@@ -15,7 +15,6 @@ component('contactAdd', {
             if(self.contact.formatedBD){
                 self.contact.birthday = $filter('date')(self.contact.formatedBD, "MM/dd/yyyy");
             }
-            console.log(self.contact);
             db.add(self.contact);
             $location.path( "/");
         };
