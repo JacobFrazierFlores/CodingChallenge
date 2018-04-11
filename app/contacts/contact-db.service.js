@@ -22,8 +22,8 @@ service('db', function($http) {
     this.add = function add(contact){
         var con = contact;
         getContacts(function(){
-            //Makes dangerous assumption contacts will never be deleted
-            con.id = contacts.length;
+            //Makes dangerous assumption last contact has highest id #
+            con.id = contacts[contacts.length - 1].id + 1;
             contacts.push(con);
         });
     };
