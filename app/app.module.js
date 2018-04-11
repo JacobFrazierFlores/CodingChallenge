@@ -4,5 +4,6 @@ angular.module('contactsApp', [
     'ngRoute',
     'contactList',
     'contactDetails',
-    'contactAdd'
+    'contactAdd',
+    'contactDb'
 ]);

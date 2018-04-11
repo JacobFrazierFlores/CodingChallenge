@@ -1,2 +1,2 @@
 angular.module('contactAdd',
-    ['ngRoute']);
+    ['ngRoute', 'contactDb']);

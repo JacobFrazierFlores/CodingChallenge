@@ -1,3 +1,3 @@
 angular.module('contactDetails', [
-    'ngRoute'
+    'ngRoute', 'contactDb'
 ]);

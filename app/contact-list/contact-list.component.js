@@ -2,11 +2,10 @@ angular.
 module('contactList').
 component('contactList', {
     templateUrl: 'contact-list/contact-list.template.html',
-    controller: ['$http', function ContactListController($http) {
+    controller: ['db', function ContactListController(db) {
         var self = this;
-
-        $http.get('contacts/seed.json').then(function(response) {
-            self.contacts = response.data.contacts;
+        db.get(function(response){
+            self.contacts = response;
         });
     }]
 });
