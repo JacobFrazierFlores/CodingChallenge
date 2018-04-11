@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Phone Book</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="app.module.js"></script>
@@ -16,10 +18,18 @@
     <script src="contact-add/contact-add.component.js"></script>
     <script src="contact-edit/contact-edit.module.js"></script>
     <script src="contact-edit/contact-edit.component.js"></script>
+    <script src="navigation/navigation.module.js"></script>
+    <script src="navigation/navigation.component.js"></script>
     <script src="contacts/contact-db.module.js"></script>
     <script src="contacts/contact-db.service.js"></script>
+    <script src="contacts/image-src.service.js"></script>
 </head>
 <body>
-<div ng-view></div>
+<navigation></navigation>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-sm-10 col-lg-6" ng-view></div>
+    </div>
+</div>
 </body>
 </html>
