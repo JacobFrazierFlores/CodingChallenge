@@ -1,0 +1,33 @@
+<form name="addContact">
+    <p>
+        Name:<br>
+        <input type="text" name="name" ng-model="$ctrl.contact.name" required>
+        <span style="color:red" ng-show="addContact.name.$dirty && addContact.name.$invalid">
+            <span ng-show="addContact.name.$error.required">A name is required.</span>
+        </span>
+    </p>
+    <p>
+        Phone number:<br>
+        <input type="text" name="phone" ng-model="$ctrl.contact.phone" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$">
+        <span style="color:red" ng-show="addContact.phone.$dirty && addContact.phone.$invalid">
+            <span ng-show="addContact.phone.$error.pattern">Invalid phone number format.</span>
+        </span>
+    </p>
+    <p>
+        Email:<br>
+        <input type="email" name="email" ng-model="$ctrl.contact.email">
+        <span style="color:red" ng-show="addContact.email.$dirty && addContact.email.$invalid">
+            <span ng-show="addContact.email.$error.email">Invalid email address.</span>
+        </span>
+    </p>
+    <p>
+        Birthday:<br>
+        <input type="date" ng-model="$ctrl.contact.birthday">
+    </p>
+    <p>
+        Picture Url:<br>
+        <input type="text" ng-model="$ctrl.contact.avatar">
+    </p>
+    <br>
+    <button ng-click="$ctrl.addContact()" ng-disabled="(addContact.name.$invalid) || (addContact.email.$dirty && addContact.email.$invalid) || (addContact.phone.$dirty && addContact.phone.$invalid)">Add</button>
+</form>
