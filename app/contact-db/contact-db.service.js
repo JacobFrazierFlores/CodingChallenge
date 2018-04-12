@@ -1,6 +1,6 @@
 angular.
 module('contactDb').
-service('db', function($http, $localStorage) {
+service('db', function($http, $localStorage, $filter) {
     //Bind storage variable to local storage
     var storage = $localStorage;
 
@@ -24,12 +24,12 @@ service('db', function($http, $localStorage) {
         };
     }
 
-    //Returns a deep copy of contacts data
+    //Returns a deep copy of contact-db data
     //@params callBack: function that will be passed the contact data after it is created
     function getContacts(callBack){
-        //If there are no contacts in local storage, pull from seed file
+        //If there are no contact-db in local storage, pull from seed file
         if(!storage.contacts){
-            $http.get('contacts/seed.json').then(function(response) {
+            $http.get('contact-db/seed.json').then(function(response) {
                 storage.contacts = response.data.contacts;
                 callBack(deepCopyArray(storage.contacts));
             });
@@ -42,6 +42,12 @@ service('db', function($http, $localStorage) {
     //Public getter function
     this.get = function get(callBack) {
         getContacts(callBack);
+    };
+
+    this.getById = function getById(id, callBack) {
+        getContacts(function(contacts){
+            callBack($filter('filter')(contacts, {id: id})[0]);
+        });
     };
 
     //Public adder function

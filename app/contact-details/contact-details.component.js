@@ -8,9 +8,8 @@ component('contactDetails', {
             //Receive contact ID from the route parameters
             self.contactId = $routeParams.contactId;
 
-            db.get(function(response) {
-                // Select the contact with the matching ID using the filter service
-                self.contact = $filter('filter')(response, {id: self.contactId})[0];
+            db.getById(self.contactId, function(response) {
+                self.contact = response;
             });
         }
     ]

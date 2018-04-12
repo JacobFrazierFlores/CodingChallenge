@@ -9,9 +9,9 @@ component('contactEdit', {
             //Store contact ID from route parameters
             var contactId = $routeParams.contactId;
 
-            db.get(function(response) {
+            db.getById(contactId, function(response) {
                 //Select contact with matching id
-                self.contact = $filter('filter')(response, {id: contactId})[0];
+                self.contact = response;
                 //If the birthday is not null or black, reformat it to match HTML5 data type
                 if(self.contact.birthday != null && self.contact.birthday.length > 0) {
                     self.contact.formatedBD = new Date(self.contact.birthday);
@@ -25,11 +25,11 @@ component('contactEdit', {
                 }
                 db.update(self.contact);
                 // Redirect to contact details page
-                $location.path( "/contacts/" + self.contact.id );
+                $location.path( "/contact-db/" + self.contact.id );
             };
 
             self.cancel = function cancel(){
-                $location.path( "/contacts/" + self.contact.id );
+                $location.path( "/contact-db/" + self.contact.id );
             };
 
         }

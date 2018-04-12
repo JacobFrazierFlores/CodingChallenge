@@ -8,7 +8,9 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-mocks/angular-mocks.js',
+        'bower_components/ngstorage/ngStorage.js',
         '**/*.module.js',
+        '**/*.service.js',
         '*!(.module|.spec).js',
         '!(bower_components)/**/*!(.module|.spec).js',
         '**/*.spec.js'

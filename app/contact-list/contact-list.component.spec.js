@@ -6,19 +6,21 @@ describe('contactList', function() {
 
     // Test the controller
     describe('ContactListController', function() {
-        var $httpBackend, ctrl;
-        beforeEach(inject(function($componentController, _$httpBackend_) {
-            $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('contacts/seed.json')
-                .respond({contacts : [{name: 'John'}, {name: 'Kate'}, {name : 'Pete'}]});
+        var db, ctrl;
 
+        beforeEach(angular.mock.module({
+            'db': {
+                get: function(callBack) {
+                    callBack([{name: 'John'}, {name: 'Kate'}, {name : 'Pete'}]);
+                }
+            }
+        }));
+
+        beforeEach(inject(function($componentController) {
             ctrl = $componentController('contactList');
         }));
 
-        it('should create three contacts after receiving a response from the httpBackend', function() {
-            expect(ctrl.contacts).toBeUndefined();
-
-            $httpBackend.flush();
+        it('should create three contact-db after receiving a response from the httpBackend', function() {
             expect(ctrl.contacts).toEqual([{name: 'John'}, {name: 'Kate'}, {name : 'Pete'}]);
         });
     });
