@@ -10,16 +10,9 @@ describe('contactEdit', function() {
 
         beforeEach(angular.mock.module({
             'db': {
-                get: function(callBack) {
-                    callBack([
-                        {
-                            "id": 1,
-                            "name": "Erin Eyeball",
-                            "phone": "(123) 456-7890",
-                            "email": "one.eye.open@ilumin.com",
-                            "birthday": "01/01/1980",
-                            "avatar": "http://lorempixel.com/300/300/people/1"
-                        },
+                getById: function(id, callBack) {
+                    expect(id).toEqual(2);
+                    callBack(
                         {
                             "id": 2,
                             "name": "Johnathan Homebody",
@@ -28,7 +21,7 @@ describe('contactEdit', function() {
                             "birthday": "01/01/1980",
                             "avatar": "http://lorempixel.com/300/300/people/2"
                         }
-                    ]);
+                    );
                 },
                 update: function(contact) {
                     expect(contact.id).toBe(contactId);
